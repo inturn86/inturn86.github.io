@@ -2,6 +2,7 @@
 title: (QueryDsl) 왜 QueryDsl로 Sql 함수가 안되지...
 excerpt: QueryDsl에서 Sql 함수 에러 발생? JPA 방언으로 문제 해결하는 방법 ? 함수 에러에 대한 원인 분석 및 해결 방안 제시
 date: 2024-03-28 21:55:00 +0800
+description: QueryDsl로 Sql 함수를 호출해보자. JPA 방언을 이용한 Sql 호출. 방언 커스텀
 categories:
   - JPA
   - QueryDsl
@@ -17,8 +18,6 @@ tags:
   - PostgreSQL92Dialect
   - Expressions
   - stringTemplate
-pin: false
-img_path:
 ---
 
 QueryDsl의 Expressions.stringTemplate으로 Sql 함수를 사용하면서 발생했던 문제를 확인해보자. 

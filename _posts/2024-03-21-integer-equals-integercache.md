@@ -2,14 +2,13 @@
 title: (Java) Integer 동등 연산(==) 결과에 대한 문제
 excerpt: Integer 동등 연산(==)의 결과는 ? 128, 127의 차이는?
 date: 2024-03-21 21:55:00 +0800
+description: Integer 동등 연산의 결과에 대해 알아보자. 동등성 vs 동일성을 알아보자.
 categories:
   - Java
 tags:
   - Java
   - Integer
   - IntegerCache
-pin: false
-img_path:
 ---
 Integer는 개발 시에 흔히 사용되는 래퍼 클래스이다. 오늘은 Integer를 동등 연산( == ) 할 때 발생하는 이슈에 대해서 알아보도록 하자.
 
