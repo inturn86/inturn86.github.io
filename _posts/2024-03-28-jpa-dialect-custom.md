@@ -88,6 +88,7 @@ from wom_order orderentit0_
 
 
 - Entity 클래스
+
 ```
 @Getter @Setter  
 @Entity  
