@@ -111,9 +111,9 @@ comments:
   # Giscus options › https://giscus.app
   giscus:
     repo: "inturn86/inturn86.github.io" # <gh-username>/<repo>
-    repo_id: "R_kgDOLhcBog"
+    repo_id: "R_kgDOLmz6-w"
     category: "General"
-    category_id: "DIC_kwDOLhcBos4CeBwJ"
+    category_id: "DIC_kwDOLmz6-84CeTaQ"
     mapping: "pathname" # optional, default to 'pathname'
     input_position: "bottom" # optional, default to 'bottom'
     lang: "ko"# optional, default to the value of `site.lang`
