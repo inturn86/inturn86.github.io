@@ -213,6 +213,7 @@ from wom_order orderentit0_
 
 - 결과
 
+
   ![Pasted image 20240328230928](https://github.com/inturn86/inturn86.github.io/assets/110794550/9b98ccfc-2a12-4b6a-8a45-d5fca8f9f4cc)
 
 'to_char' 로 변환 시 정상동작한다. 하지만 위 QueryDsl 구현부를 보면 group by는 그대로 'DATE'를 사용하고 있다. 그럼에도 불구하고 정상동작하는 이유는 뭘까? 어떻게 동작하는지 추가적으로 확인해보자.
