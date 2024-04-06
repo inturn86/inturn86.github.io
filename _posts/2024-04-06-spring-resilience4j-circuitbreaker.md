@@ -1,6 +1,6 @@
 ---
 title: (Spring) Resilience4j Circuitbreaker
-date: 2024-04-08 21:55:00 +0800
+date: 2024-04-06 21:55:00 +0800
 categories:
   - Spring
 tags:
