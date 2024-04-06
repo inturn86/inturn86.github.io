@@ -181,7 +181,7 @@ public class OrderController {
 
 #### Circuitbreaker 동작 확인
 
-![[Pasted image 20240406225743.png]]
+![Pasted image 20240406225743](https://github.com/inturn86/inturn86.github.io/assets/110794550/9c705598-0108-4bd8-aca1-12eb5b81066d)
 
 ```
 CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
@@ -196,18 +196,18 @@ CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
 
 ##### CLOSED 상태
 
-![[Pasted image 20240406230149.png]]
+![Pasted image 20240406230120](https://github.com/inturn86/inturn86.github.io/assets/110794550/a490ec91-20f5-4280-be62-32cc8e5b1d7e)
 > circuitbreaker의 상태이다. bufferedCalls는 현재 call 된 숫자이고, 그 중 failedCalls는 실패한 숫자를 가르킨다.
 > circuitbreaker를 동작시킬 최소한의 call수(minimumNumberOfCalls)를 넘지않으면 failureRate는 측정되지 않는다. 
 
 ##### OPEN 상태
 
-![[Pasted image 20240406230140.png]]
+![Pasted image 20240406230140](https://github.com/inturn86/inturn86.github.io/assets/110794550/087be2de-d04a-4c6f-bd36-83329900c92b)
 > 10회 실행 중 5회 실패에 따라 임계값 50%보다 커지게 되어 circuitbreaker가 OPEN 상태로 전환되었다. 
 > circuitbreaker가 OPEN 되어 waitDurationInOpenState에 설정한 10초의 시간동안 외부 서비스를 call하지 않고 빠른 실패로 반환처리 한다. 
 
 ##### HALF_OPEN 상태
-![[Pasted image 20240406230120.png]]
+![Pasted image 20240406230149](https://github.com/inturn86/inturn86.github.io/assets/110794550/322d7341-f581-4290-95da-42f34069cc92)
 
 > HALF_OPEN 상태일 때 다시 외부 서비스를 call한다.
 > permittedNumberOfCallsInHalfOpenState에 설정한 call의 수 만큼 호출한 후 실패율이 임계값보다 클 경우 OPEN 상태, 반대일 경우 CLOSED 상태로 전환한다.
