@@ -255,4 +255,5 @@ CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
 
 ### 참고 자료
 <https://resilience4j.readme.io/>
+
 <https://velog.io/@akfls221/resilience4j-%EB%A1%9C-%EC%95%8C%EC%95%84%EB%B3%B4%EB%8A%94-%EC%84%9C%ED%82%B7%EB%B8%8C%EB%A0%88%EC%9D%B4%EC%BB%A4%ED%8C%A8%ED%84%B4CircuitBreaker>
