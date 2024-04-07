@@ -14,6 +14,7 @@ img_path:
 ### Resilience4j 란?
 
 resilience4j 는 Netflix Hystrix에서 영감을 받았지만 함수형 프로그래밍을 위해 설계된 내결함성 라이브러리이며, Resilience(회복력)과 Java가 합쳐진 이름이다.
+아래 6가지 기능을 제공한다.
 
 #### Code Modules
 - resilience4j-circuitbreaker: Circuit breaking
@@ -25,7 +26,15 @@ resilience4j 는 Netflix Hystrix에서 영감을 받았지만 함수형 프로�
 
 해당 글에서는 circuitbreaker에 대해서 알아보고 테스트해보도록 하겠다.
 
-### Circuitbreaker
+### Circuitbreaker가 필요한 이유
+
+애플리케이션의 각각의 도메인이나 기능을 세분하하고 분산 서버로 아키텍쳐링하는 구조가 늘어나고 있다.
+
+이에 외부 서비스에 대한 의존도가 증가함에 따라 외부 서비스의 장애가 발생할 경우 다른 서비스에도 장애가 전파되는 것을 막기위해 circuitbreaker를 사용한다.
+
+하나의 외부 서비스가 장애가 발생하였을 경우 Connection Time 에 대한 Latency가 증가하고 상황이 지속될 경우 Thread 반환이 지연되어 해당 서비스 또한 장애가 발생할 수 있다. 이때 circuitbreaker를 사용하여 빠른 실패 처리를 통해 Thread를 반환시키고 실패한 이력을 Fallback으로 관리하여 대응할 수 있도록 한다.
+
+### Circuitbreaker 란?
 
 circuitbreaker를 직역하면 회로차단기 이다. 과전류가 발생할 경우 회로를 차단 시켜 이후에 발생할 수 있는 문제를 방지해준다.
 
@@ -71,20 +80,14 @@ resilience4j:
     configs:  
       default:  
         registerHealthIndicator: true # actuator 정보 노출을 위한 설정  
-        slowCallRateThreshold: 80  #slowCall에 대한 임계값
-        slowCallDurationThreshold: 60s  #slowCall의 시간
+        slowCallRateThreshold: 80
+        slowCallDurationThreshold: 60s
         slidingWindowType: COUNT_BASED  
-        slidingWindowSize: 10
-        # sliding window 크기. COUNT_BASED라면 array 크기, TIME_BASED이면 초.   
-        permittedNumberOfCallsInHalfOpenState: 5
-        # circuit이 HALF_OPEN 상태일 때 허용되는 call 수이며 실패율에 따라서 close또는 open으로 변경.  
-        automaticTransitionFromOpenToHalfOpenEnabled: false
-        # 대기시간이 지난후 서킷을 반열림 상태로 자동 전환할지, 첫번째 호출이 들어오길 기다렸다 반열림 상태로 전환할지.  
+        slidingWindowSize: 10   
+        permittedNumberOfCallsInHalfOpenState: 5  
         waitDurationInOpenState: 10s
-        #OPEN 상태를 유지하는 시간, 해당 시간이후 HALF OPEN 상태로 변경  
         failureRateThreshold: 50
-        #실패한 호출에 대한 임계값(백분율)으로 이 값을 초과하면 서킷이 열림.  
-        minimumNumberOfCalls: 10 # circuit을 동작시키기 위한 최소한의 call 수
+        minimumNumberOfCalls: 10
 
 management:  
   endpoints:  
@@ -101,6 +104,25 @@ management:
 
 ```
 
+
+| properties                            | 설명                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------ |
+| slidingWindowType                     | 개수 기반 슬라이딩 윈도우(COUNT_BASED) / 시간 기반 슬라이딩 윈도우(TIME_BASED)           |
+| slidingWindowSize<br>                 | 슬라이딩 윈도우의 사이즈                                                      |
+| slowCallDurationThreshold             | Slow Call로 인식할 시간                                                  |
+| slowCallRateThreshold                 | Slow Call 발생에 대한 임계값 해당 이 값을 초과하면 circuitbreaker가 OPEN으로 전환        |
+| permittedNumberOfCallsInHalfOpenState | circuit이 HALF_OPEN 상태일 때 허용되는 call 수이며 실패율에 따라서 CLOSE또는 OPEN으로 변경. |
+| waitDurationInOpenState               | OPEN 상태를 유지하는 시간, 해당 시간이후 HALF OPEN 상태로 변경                         |
+| failureRateThreshold                  | 실패한 호출에 대한 임계값(백분율)으로 이 값을 초과하면 circuit이 OPEN 상태로 전환               |
+| minimumNumberOfCalls                  | circuit을 동작시키기 위한 최소한의 call 수                                      |
+
+> - 개수 기반 슬라이딩 윈도우
+    circuitbreaker 에서 사용되는 메트릭 수집 방법 중 하나로 일정 개수(slidingWindowSize)의 요청을 추적하고, 해당 요청들 중 실패한 요청의 비율을 계산하여 임계값과 비교하여 회로 차단 여부를 결정한다.
+
+> ![](https://velog.velcdn.com/images/akfls221/post/9db6474a-606b-4172-8bc8-d8b2df75cbb2/image.png)
+
+> - 시간 기반 슬라이딩 윈도우
+    > 시간을 슬라이딩 윈도우로 사용하고 일정 시간동안의 실패율을 계산하여 회로 차단 여부를 결정한다.
 
 #### 송신 FeignClient 설정
 
@@ -227,6 +249,9 @@ CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
 
 오늘은 resilience4j의 circuitbreaker를 활용하여 장애 전파를 막고 장애가 발생한 요청에 대한 후처리를 할 수 있는 기능까지 알아보았다. resilience4j는 MSA에 많이 활용되는 기술이지만 외부 서비스와 인터페이스가 빈번한 서비스에도 활용하기 좋은 기술이라고 생각한다.
 
->참고 자료
->
+### Github
+> https://github.com/inturn86/msa/tree/aa13eefcf695b476214d870b6a9697f4a80302c2/resilience-project
+
+
+### 참고 자료
 > https://resilience4j.readme.io/
