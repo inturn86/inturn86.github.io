@@ -122,7 +122,7 @@ management:
 > ![](https://velog.velcdn.com/images/akfls221/post/9db6474a-606b-4172-8bc8-d8b2df75cbb2/image.png)
 
 > - 시간 기반 슬라이딩 윈도우
-    > 시간을 슬라이딩 윈도우로 사용하고 일정 시간동안의 실패율을 계산하여 회로 차단 여부를 결정한다.
+    시간을 슬라이딩 윈도우로 사용하고 일정 시간동안의 실패율을 계산하여 회로 차단 여부를 결정한다.
 
 #### 송신 FeignClient 설정
 
@@ -250,8 +250,8 @@ CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
 오늘은 resilience4j의 circuitbreaker를 활용하여 장애 전파를 막고 장애가 발생한 요청에 대한 후처리를 할 수 있는 기능까지 알아보았다. resilience4j는 MSA에 많이 활용되는 기술이지만 외부 서비스와 인터페이스가 빈번한 서비스에도 활용하기 좋은 기술이라고 생각한다.
 
 ### Github
-> https://github.com/inturn86/msa/tree/aa13eefcf695b476214d870b6a9697f4a80302c2/resilience-project
+- https://github.com/inturn86/msa/tree/aa13eefcf695b476214d870b6a9697f4a80302c2/resilience-project
 
 
 ### 참고 자료
-> https://resilience4j.readme.io/
+-  https://resilience4j.readme.io/
