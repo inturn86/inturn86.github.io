@@ -250,8 +250,9 @@ CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
 오늘은 resilience4j의 circuitbreaker를 활용하여 장애 전파를 막고 장애가 발생한 요청에 대한 후처리를 할 수 있는 기능까지 알아보았다. resilience4j는 MSA에 많이 활용되는 기술이지만 외부 서비스와 인터페이스가 빈번한 서비스에도 활용하기 좋은 기술이라고 생각한다.
 
 ### Github
-- https://github.com/inturn86/msa/tree/aa13eefcf695b476214d870b6a9697f4a80302c2/resilience-project
+<https://github.com/inturn86/msa/tree/aa13eefcf695b476214d870b6a9697f4a80302c2/resilience-project>
 
 
 ### 참고 자료
--  https://resilience4j.readme.io/
+<https://resilience4j.readme.io/>
+<https://velog.io/@akfls221/resilience4j-%EB%A1%9C-%EC%95%8C%EC%95%84%EB%B3%B4%EB%8A%94-%EC%84%9C%ED%82%B7%EB%B8%8C%EB%A0%88%EC%9D%B4%EC%BB%A4%ED%8C%A8%ED%84%B4CircuitBreaker>
