@@ -106,11 +106,11 @@ management:
 
 
 | properties                            | 설명                                                                 |
-| ------------------------------------- | ------------------------------------------------------------------ |
+| ------------------------------------- |--------------------------------------------------------------------|
 | slidingWindowType                     | 개수 기반 슬라이딩 윈도우(COUNT_BASED) / 시간 기반 슬라이딩 윈도우(TIME_BASED)           |
 | slidingWindowSize<br>                 | 슬라이딩 윈도우의 사이즈                                                      |
 | slowCallDurationThreshold             | Slow Call로 인식할 시간                                                  |
-| slowCallRateThreshold                 | Slow Call 발생에 대한 임계값 해당 이 값을 초과하면 circuitbreaker가 OPEN으로 전환        |
+| slowCallRateThreshold                 | Slow Call 발생에 대한 임계값이 해당 값을 초과하면 circuitbreaker가 OPEN으로 전환       |
 | permittedNumberOfCallsInHalfOpenState | circuit이 HALF_OPEN 상태일 때 허용되는 call 수이며 실패율에 따라서 CLOSE또는 OPEN으로 변경. |
 | waitDurationInOpenState               | OPEN 상태를 유지하는 시간, 해당 시간이후 HALF OPEN 상태로 변경                         |
 | failureRateThreshold                  | 실패한 호출에 대한 임계값(백분율)으로 이 값을 초과하면 circuit이 OPEN 상태로 전환               |
@@ -217,8 +217,8 @@ CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
 > 컨텍스트 패스에 **'/actuator/health/circuitBreakers'** 를 추가하고 GET 방식으로 호출해보자.  
 
 ##### CLOSED 상태
+![Pasted image 20240406230149](https://github.com/inturn86/inturn86.github.io/assets/110794550/322d7341-f581-4290-95da-42f34069cc92)
 
-![Pasted image 20240406230120](https://github.com/inturn86/inturn86.github.io/assets/110794550/a490ec91-20f5-4280-be62-32cc8e5b1d7e)
 > circuitbreaker의 상태이다. bufferedCalls는 현재 call 된 숫자이고, 그 중 failedCalls는 실패한 숫자를 가르킨다.
 > circuitbreaker를 동작시킬 최소한의 call수(minimumNumberOfCalls)를 넘지않으면 failureRate는 측정되지 않는다. 
 
@@ -229,7 +229,7 @@ CircuitBreaker 'getCircuitOrderData' is OPEN and does not permit further calls
 > circuitbreaker가 OPEN 되어 waitDurationInOpenState에 설정한 10초의 시간동안 외부 서비스를 call하지 않고 빠른 실패로 반환처리 한다. 
 
 ##### HALF_OPEN 상태
-![Pasted image 20240406230149](https://github.com/inturn86/inturn86.github.io/assets/110794550/322d7341-f581-4290-95da-42f34069cc92)
+![Pasted image 20240406230120](https://github.com/inturn86/inturn86.github.io/assets/110794550/a490ec91-20f5-4280-be62-32cc8e5b1d7e)
 
 > HALF_OPEN 상태일 때 다시 외부 서비스를 call한다.
 > permittedNumberOfCallsInHalfOpenState에 설정한 call의 수 만큼 호출한 후 실패율이 임계값보다 클 경우 OPEN 상태, 반대일 경우 CLOSED 상태로 전환한다.
