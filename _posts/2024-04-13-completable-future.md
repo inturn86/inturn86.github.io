@@ -171,7 +171,7 @@ private Integer finishConfirmOrder(int orderCnt, List<?> completeOrderList) {
 위 결과를 보면 별도의 스레드를 통해 처리되기 때문에 처리에 대한 순서도 순차적이지 않다.
 
 
-#### thenApply(Function\<? super T,? extends U\> fn)
+##### thenApply(Function\<? super T,? extends U\> fn)
 -  Function을 인자로 받고 Function의 반환값인 U의 CompletableFuture\<U\>를 반환  
  - 작업 콜백 처리 시 인자를 받아 반환 값이 있는 로직을 처리할 때 사용할 수 있다.  
 
@@ -239,7 +239,7 @@ private boolean sendPushMessage(String orderId) {
 주문을 일괄 생성하고 supplyAsync로 confirmOrder 메소드를 비동기 처리한다. confirmOrder가 완료되어 반환되면 thenApply를 통해 주문 ID가 sendPushMessageTask로 전달되고 이때 반복문을 통해 sendPushMessage가 실행되는데 전송에 실패할 경우 최대 3회 시도 후 반환값을 whenComplete로 전달하여 비동기 처리를 마무리한다.  
 
 
-#### thenRun(Runnable action)
+##### thenRun(Runnable action)
 - Runnable을 인자로 받고 CompletableFuture\<Void\>를 반환
 - 작업 콜백 처리 시 인자를 받지 않고 반환 값이 없는 로직을 처리할 때 사용. 
 
