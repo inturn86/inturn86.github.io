@@ -246,7 +246,7 @@ private boolean sendPushMessage(String orderId) {
 
 
 #### 3. 작업 조합
-##### thenCompose(Function\<? super T, ? extends CompletionStage\<U>> fn)
+##### thenCompose(Function\<? super T, ? extends CompletionStage\<U\>> fn)
 - thenCompose 를 호출한 CompletableFuture가 비동기 처리되고 결과를 전달하여 매개변수로 받은 CompletableFuture가 비동기로 처리된다.  
 
 ```java
@@ -266,9 +266,10 @@ private OrderDTO createOrder() {
    return new OrderDTO(orderId, "READY", "ITEM", "ADDRESS", 1);  
 }
 ```
-  
-##### thenCombine(CompletionStage\<? extends U\> other, BiFunction\<? super T,? super U,? extends V\> fn)  
+
+##### thenCombine(CompletionStage\<? extends U\> other, BiFunction\<? super T,? super U,? extends V\> fn)
 - 2개의 CompletableFuture로 각각 비동기 처리되며, 모두 완료되었을 경우 BiFunction에서 결과를 조합하여 사용  
+
 ```java
 @DisplayName("CompletableFuture 주문 제품 및 배송지 조회")  
 @Test  
@@ -310,7 +311,8 @@ private String completeOrder(String itemId, String address) {
 ```
 
 ##### allOf(CompletableFuture\<?>... cfs)
-- 여러개의 CompletableFuture를 비동기로 일괄 실행하고 모든 작업이 완료된 경우 결과를 일괄 반환.  
+- 여러개의 CompletableFuture를 비동기로 일괄 실행하고 모든 작업이 완료된 경우 결과를 일괄 반환.
+
 ```java
 @DisplayName("CompletableFuture 주문 목록 일괄 확정")  
 @Test  
@@ -369,7 +371,8 @@ void completableFuture_AnyOfOrderConfirm() throws ExecutionException, Interrupte
 
 ##### handle(BiFunction\<? super T, Throwable, ? extends U> fn)
 - 결과, 에러를 받아 에러가 발생할 경우와 아닌 경우에 대한 처리 가능  
-- 함수형 인터페이스 BiFunction을 매개변수로 받음  
+- 함수형 인터페이스 BiFunction을 매개변수로 받음
+
 ```java
 @DisplayName("CompletableFuture 에러 헨들링")  
 @ParameterizedTest  
@@ -402,6 +405,7 @@ void completableFuture_ErrorHandle(boolean param) throws ExecutionException, Int
 ##### exceptionally(Function<Throwable, ? extends T> fn)
 - 작업 처리 중 에러가 발생할 경우 예외 처리 진행  
 - 함수형 인터페이스 Function을 매개변수로 받음
+
 ```java
 @DisplayName("CompletableFuture 에러 예외 헨들링")  
 @ParameterizedTest  
@@ -420,8 +424,10 @@ void completableFuture_ErrorExceptionally(boolean param) throws ExecutionExcepti
 #### 비동기메소드
 CompletableFuture 클래스가 제공하는 메소드를 보면 async라는 단어가 붙은 메소드를 확인할 수 있다. 
 
-thenApply - thenApplyAsync
-thenAccept - thenAcceptAsync
+> thenApply - thenApplyAsync
+>
+> thenAccept - thenAcceptAsync
+
 Async가 붙은 메소드는 다른 스레드를 이용하여 비동기 작업을 처리하고, 아닌 경우는 현재 스레드로 작업을 처리한다.
 
 ```java
@@ -460,6 +466,8 @@ void completableFuture_ComposeCreateOrderAndConfirmOrder() throws ExecutionExcep
 
 
 #### 처리 속도
+
+순차 처리와 비동기 처리에 대해 처리 시간을 비교해보았다.
 
 ```java
 @DisplayName("CompletableFuture 주문 확정 - Processing Time 측정")  
@@ -513,7 +521,7 @@ private OrderResponse sendOrderDelay(OrderDTO order) {
 [2024-04-13T15:57:51.013831200 - Test worker] START 비동기 처리
 [2024-04-13T15:57:51.931857 - Test worker] END 비동기 처리
 ```
-순차 처리와 비동기 처리에 대해 처리 시간을 비교해보았다.
+
  - 조건 : 주문 100EA
  - 시나리오
 	 - sendOrderDelay - 외부 서비스로 주문을 전송(처리시간 50 msec)
@@ -531,5 +539,7 @@ private OrderResponse sendOrderDelay(OrderDTO order) {
 
 ### **참고자료**
 [Java CompletableFuture로 비동기 적용하기 | 11번가 TechBlog — 11번가 기술블로그 (11st-tech.github.io)](https://11st-tech.github.io/2024/01/04/completablefuture/#CompletableFuture)
-[Guide To CompletableFuture | Baeldung](https://www.baeldung.com/java-completablefuture)
+
+<https://www.baeldung.com/java-completablefuture>
+
 [https://mangkyu.tistory.com/263](https://mangkyu.tistory.com/263) [MangKyu's Diary:티스토리]
