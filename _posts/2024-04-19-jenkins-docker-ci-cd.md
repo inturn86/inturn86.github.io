@@ -1,20 +1,19 @@
 ---
 title: (DevOps) Jenkins와 Docker를 활용한 CI/CD Pipeline 구축(NCP 환경)
-
 date: 2024-04-19 16:55:00 +0800
-
+description: Jenkins와 Docker로 CI/CD 환경을 구축해보자. GitHub의 Webhook을 통한 CD 처리를 구축해보자
+excerpt: Jenkins와 Docker로 CI/CD 환경을 구축해보자. GitHub의 Webhook을 통한 CD 처리를 구축해보자
 categories:
-- DevOps
-- Docker
-
+  - DevOps
+  - Docker
 tags:
-- Jenkins
-- NaverCloudPlatform
-- NCP
-- Docker
-- Dockerhub
-- GitHub
-- Webhook
+  - Jenkins
+  - NaverCloudPlatform
+  - NCP
+  - Docker
+  - Dockerhub
+  - GitHub
+  - Webhook
 ---
 
 프로젝트 진행을 위해 NCP(Naver Cloud Platform) 환경에서 Jenkins Pipeline을 통한 CI/CD 구축 과정을 기록하였다.
