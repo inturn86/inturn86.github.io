@@ -426,9 +426,3 @@ GitHub Push 에 따라 순차적으로 위 Pipeline이 동작하고 Spring Boot 
 오늘은 Jenkins와 Docker를 이용한 CI / CD  Pipeline을 구축하였다. 현재는 단일 서버를 가지고 테스트를 하였는데 추후에 분산 서버를 활용하여 무중단 배포에 대해서도 알아보는 시간을 갖도록 할 예정이다. 그리고 Jenkins를 활용하지 않고 GitHub Action을 통한 CI / CD에 대해서도 추가로 알아보도록 하겠다.
 
 
-
-
-Jenkins 컨테이너가 왜 공유가 되나 ?????
-docker GPG 키?
-docker api 저장소 추가???
-github 관련 key를 등록하지 않아도 webhook이 되는데 이유가 있을까요?
