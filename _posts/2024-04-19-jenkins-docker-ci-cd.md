@@ -24,27 +24,27 @@ Jenkins와 Docker를 활용한 Pipeline 구성은 아래 이미지와 같다.
 
 ![](../assets/img/2024-04-19-jenkins-docker-ci-cd/Jenkins Docker Pipeline 구축.png)
 
-### NCP 클라우드 서버 생성
+### **NCP 클라우드 서버 생성**
 
 위와 같은 환경 구축을 위해 NCP에서 서버 2EA 를 생성해야한다.
-- Spring Boot Server - Ubuntu 18.0.4
+- **Spring Boot Server - Ubuntu 18.0.4**
 	- [Standard] 4vCPU, 16GB Mem [g2]
-- Jenkins Server - Ubuntu 18.0.4
+- **Jenkins Server - Ubuntu 18.0.4**
 	- [Standard] 2vCPU, 8GB Mem [g2]
 
 NCP 서버 생성 관련 가이드는 쉬운 가이드<https://www.ncloud.com/guideCenter/guide> 를 참고하여 생성하도록 하자. 이번 구축은 NCP Classic, SSH는 Putty를 사용하여 진행하였다.
 
 간략한 서버 생성 절차는 아래와 같다.
-1. ACG 생성( ncloud-default-acg)
-2. 서버 생성
-3. 공인 IP 신청 및 서버와 매핑
-4. 서버 접속(Putty)
-5. 서버 password 변경(passwd root)
+1. **ACG 생성( ncloud-default-acg)**
+2. **서버 생성**
+3. **공인 IP 신청 및 서버와 매핑**
+4. **서버 접속(Putty)**
+5. **서버 password 변경(passwd root)**
 
 서버 생성이 완료되고 Putty를 통하여 원격접속하면 아래와 같은 화면을 확인할 수 있다.
 ![](../assets/img/2024-04-19-jenkins-docker-ci-cd/server 접속.png)
 
-### Jenkins 서버에 Docker 설치
+### **Jenkins 서버에 Docker 설치**
 
 ```
 $ apt update
@@ -69,9 +69,9 @@ $ sudo curl https://raw.githubusercontent.com/docker/docker-ce/master/components
 ```
 
 
-### Jenkins 서버 Docker 컨테이너에 Jenkins 설치
+### **Jenkins 서버 Docker 컨테이너에 Jenkins 설치**
 
-#### Docker 컨테이너에 Jenkins 설치
+#### **Docker 컨테이너에 Jenkins 설치**
 
 Docker 컨테이너에 Jenkins를 설치하여 실행하도록 명령어를 작성한다.
 
@@ -87,7 +87,7 @@ docker run -d --name [컨테이너 명] -p 8080:8080 -p 9000:9000 -v /var/run/do
 
 ![](../assets/img/2024-04-19-jenkins-docker-ci-cd/docker 컨테이너 실행여부.png)
 
-#### Jenkins 관련 설정
+#### **Jenkins 관련 설정**
 
 Jenkins에 설정한 공인 IP를 통해 접속한다.
 
@@ -111,7 +111,7 @@ plugin 설치가 완료되면 **Create First Admin User**를 등록할 수 있�
 
 마지막으로 Jenkins 접속할 Url 설정을 끝으로 기본 설정은 마무리된다.
 
-### Docker Jenkins 컨테이너 내부에 Docker 설치
+### **Docker Jenkins 컨테이너 내부에 Docker 설치**
 
 이제 Docker Jenkins 컨테이너로 이동하여 내부에 Docker를 설치한다.
 Jenkins 서버에서 아래 명령어로 Docker 내부의 Jenkins 컨테이너로 이동한다.
@@ -148,9 +148,9 @@ $ app install docker.io -y
 
 이제 Jenkins 컨테이너 내부에서도 Docker 에 대한 명령어를 실행할 수 있다.
 
-### Jenkins 에서 Credentials 설정
+### **Jenkins 에서 Credentials 설정**
 
-#### 관련 plugin 설치
+#### **관련 plugin 설치**
 
 Jenkins에 접속하여 Docker와 Docker pipeline, SSH Agent를 설치한다.
 
@@ -162,7 +162,7 @@ Dashbaord > Manage Jenkins > Plugins > Avaliable plugins  에서 docker, docker 
 $ docker restart [컨테이너 명]
 ```
 
-#### Credential 추가
+#### **Credential 추가**
 Jenkins와 Docker Hub 연결을 위해 Credential을 추가한다.
 
 Dashbaord > Manage Jenkins > Creadentials의 하단 Store scoped to Jenkins에서 (global) 선택하고 우측 상단에 + Add Credentials  버튼을 누른다.
@@ -177,7 +177,7 @@ New creadentials 화면에서 아래 정보를 입력한다.
 
 입력 완료 후 Create 버튼을 선택한다.
 
-#### SSH Credentials 추가
+#### **SSH Credentials 추가**
 
 SSH credentials를 등록하기 위해서는 먼저 젠킨스 서버에서 SSH키를 생성한다.
 SSH키를 생성하면 비밀번호를 입력하지 않아도 원격 시스템에 액세스 할 수 있으며,  암호기반보다 보안이 강화
@@ -234,7 +234,7 @@ New creadentials 화면에서 아래 정보를 입력한다.
 입력 완료 후 Create 버튼을 선택한다.
 다음으로 Spring Boot Server 작업을 진행한다.
 
-#### Spring Boot Server 생성 및 Docker 설치
+#### **Spring Boot Server 생성 및 Docker 설치**
 
 위에서 진행 Jenkins Server 생성한 것과 마찬가지로 Spring Boot Server를 NCP에서 생성한다.
 생성된 서버에 원격 접속하여 Docker까지 설치를 진행한다.
@@ -249,7 +249,7 @@ $ vi authorzied_keys
 	: 파일에 작성할 내용은 Jenkins 서버의 id_rsa.pub의 내용이 들어가면 된다. 
 ```
 
-### Github Credentials 추가
+### **Github Credentials 추가**
 
 Github webhook을 사용하기 위해 Github의 credential 을 추가한다.
 
@@ -281,7 +281,7 @@ Credentials 에서 방금 Add한 github-access-token를 선택하고 우측 하�
 
 ![](../assets/img/2024-04-19-jenkins-docker-ci-cd/Test Connection.png)
 
-### GitHub Webhooks 설정
+### **GitHub Webhooks 설정**
 
 1. Jenkins에서 CI/CD를 수행할 GitHub의 Repository로 이동
 2. 상단 Tab에서 Settings 선택
@@ -294,7 +294,7 @@ Credentials 에서 방금 Add한 github-access-token를 선택하고 우측 하�
 	- 하단 Active는 활성화
 5. 작성 완료 후 Update webhook 버튼 선택
 
-### Jenkins Pipeline 구성
+### **Jenkins Pipeline 구성**
 
 이제 CI/CD를 적용할 프로젝트에 Pipeline을 구성한다.
 
@@ -392,7 +392,7 @@ pipeline {
 Docker Image 를 선언하는 것 중 [태그]는 입력하지 않을 경우 latest로 처리된다.
 추가로 Docker에 환경변수를 추가할 경우 run 명령에 -e 로 환경변수를 추가하고 General에 This project is parameterized 항목을 체크하면 된다.
 
-### 프로젝트 Dockerfile 추가
+### **프로젝트 Dockerfile 추가**
 
 Dockerfile은 새로운 Docker Image를 만들기 위한 명령을 포함하고 있는 파일이다. 이 파일에 작성된 명령어를 통해 새로운 환경의 Image를 만들 수 있다.
 Spring Project에 최상단에 Dockerfile을 생성하면 해당 Dockerfile을 통하여 build 할 수 있다.
@@ -413,13 +413,13 @@ ENTRYPOINT ["java","-jar","-Dspring.profiles.active=develop", "/session-storage.
 - COPY : 복사 명령
 - ENTRYPOINT : 컨테이너가 시작되었을 때 스크립트 실행
 
-### CI / CD
+### **CI / CD 동작 확인**
 
 ![](../assets/img/2024-04-19-jenkins-docker-ci-cd/Success.png)
 
 GitHub Push 에 따라 순차적으로 위 Pipeline이 동작하고 Spring Boot Server에서 해당 jar가 실행되는 것까지 확인하여 구성을 완료했다.
 
-### 마무리
+### **마무리**
 
 오늘은 Jenkins와 Docker를 이용한 CI / CD  Pipeline을 구축하였다. 현재는 단일 서버를 가지고 테스트를 하였는데 추후에 분산 서버를 활용하여 무중단 배포에 대해서도 알아보는 시간을 갖도록 할 예정이다. 그리고 Jenkins를 활용하지 않고 GitHub Action을 통한 CI / CD에 대해서도 추가로 알아보도록 하겠다.
 
