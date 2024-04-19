@@ -1,4 +1,3 @@
-
 ---
 title: (DevOps) Jenkins와 Docker를 활용한 CI/CD Pipeline 구축(NCP 환경)
 
