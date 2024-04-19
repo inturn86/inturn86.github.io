@@ -269,11 +269,11 @@ GitHub Server에서 Name은 GitHub 사용자 명을 입력하고 Credentials에 
 
 Add Credentials 에서 아래와 같이 입력한다.
 
-> Domain : Global credentials (unrestricted) 선택
-> Kind : Secret text 선택
-> Scope :  Global (Jenkins, nodes, items, all child items, etc) 선택
-> Secret : GitHub Token
-> ID : github-access-token 입력 **(Pipelin Script에서 식별자로 사용할 credentials ID)**
+> - Domain : Global credentials (unrestricted) 선택
+> - Kind : Secret text 선택
+> - Scope :  Global (Jenkins, nodes, items, all child items, etc) 선택
+> - Secret : GitHub Token
+> - ID : github-access-token 입력 **(Pipelin Script에서 식별자로 사용할 credentials ID)**
 
 작성 완료 후 Add 버튼을 선택
 
