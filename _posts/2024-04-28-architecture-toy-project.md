@@ -98,25 +98,25 @@ com
     └── demo  
         ├── DemoApplication.java  
         ├── domain
-		│   ├── user
-		|	|   ├── controller
-		|	|   ├── dto
-		|	|   ├── define
-		|	|   ├── entity
-		|	|   ├── repository
-		|	|   ├── service
-		|	|   └── usecase
-		│   └── trade
+        |   ├── user
+        |   |   ├── controller
+        |   |   ├── dto
+        |   |   ├── define
+        |   |   ├── entity
+        |   |   ├── repository
+        |   |   ├── service
+        |   |   └── usecase
+        │   └── trade
         ├── global
         │   ├── common
-		|   ├── utils
-		|   ├── exception
+        |   ├── utils
+        |   ├── exception
         │   └── config
-		|       └── SecurityConfig.java
-	    └── infra
+        |       └── SecurityConfig.java
+        └── infra
             ├── alarm
             └── sms
-			    └── SmsClient.java
+                └── SmsClient.java
 ```
 
 
@@ -139,4 +139,4 @@ global은 설정과 공통 클래스를 관리한다.
 infra는 외부 서비스에 대한 클래스를 관리하는 패키지이다.
 
 ## **마치며** 
-토이 프로젝트의 패키지 구조를 설계해보았다. 계층형, 도메인형을 시작으로 프로젝트에 적합한 그리고 추가 해야 할 요소들을 정리하고 보완하여 최종 결론을 도출하였다. 패키지 구조는 큰틀에서 벗어나지 않지만 프로젝트의 규모 / 기능에 대해 고려하고 필요한 패키지를 추가하며 구조화 해볼 수 있는 유익한 시간이였다.. 
+토이 프로젝트의 패키지 구조를 설계해보았다. 계층형, 도메인형을 시작으로 프로젝트에 적합한 그리고 추가 해야 할 요소들을 정리하고 보완하여 최종 결론을 도출하였다. 패키지 구조는 큰틀에서 벗어나지 않지만 프로젝트의 규모 / 기능에 대해 고려하고 필요한 패키지를 추가하며 구조화 해볼 수 있는 유익한 시간이였다. 
