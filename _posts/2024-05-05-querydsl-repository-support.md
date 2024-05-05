@@ -18,7 +18,7 @@ tags:
   - CustomQuerydslRepositorySupport
 ---
 
-기존의 QueryDsl을 편하게 사용하기 위해 구현된 `QuerydslRepositorySupport` 를 확장하여 코드의 재사용성을 용이하게 하고 생산성을 향상 시킬수 있는 커스텀 `QuerydslRepositorySupport`를 개발해 보자.
+QueryDsl을 편하게 사용하기 위해 구현된 `QuerydslRepositorySupport` 를 확장하여 코드의 재사용성을 용이하게 하고 생산성을 향상 시킬수 있는 커스텀 `QuerydslRepositorySupport`를 개발해 보자.
 
 ## **QuerydslRepositorySupport**
 
@@ -89,7 +89,7 @@ public abstract class PfitQuerydslRepositorySupport<C extends EntityPathBase> ex
 }
 ```
 
-확장 포인트 3가지에 대한 구현과 장점에 대해서 알아보도록 하자
+확장 포인트 2가지에 대한 구현과 장점에 대해서 알아보도록 하자.
 
 ### **조건문의 추상화**
 
@@ -109,7 +109,7 @@ public List<Category> getList(CategoryPagingRequestDTO req) {
 
 위 3가지 조건은 존재할 수도 있고 아닐 수도 있습니다. 그럼 여기서 파리미터 req의 categoryId가 없을 경우는 어떻게 될까요? 예외가 발생합니다.
 
-그럼 어떤식으로 처리할 수 있을까요? BooleanBuilder를 사용해 해당 데이터의 유무를 비교하여 처리할 수 있습니다. 하지만 하나의 컬럼 별로 일일이 작업을 해야 하기 떄문에 생산성에 영향을 주는 요소입니다. 그리고 실수로 잘못작성하는 경우 예외를 유발할 수도 있습니다.
+그럼 어떻게 처리할 수 있을까요? BooleanBuilder를 사용해 해당 데이터의 유무를 비교하여 처리할 수 있습니다. 하지만 하나의 컬럼 별로 일일이 작업을 해야 하기 떄문에 생산성에 영향을 주는 요소입니다. 그리고 실수로 잘못작성하는 경우 예외를 유발할 수도 있습니다.
 
 그렇다면 위와 같은 이슈를 어떠한 방식으로 정리할 수 있을까요?
 제가 선택한 방식은 `QuerydslRepositorySupport` 확장하여 아래 메소드를 추가하였습니다.
@@ -156,7 +156,9 @@ public List<Category> getList(CategoryPagingRequestDTO req, Sort sort) {
 
 categorySort라는 필드를 asc로 정렬하여 반환요청을 하고 있습니다.
 
-그렇다면 Sort의 기준이 되는 필드가 메소드 별로 다르다면 어떻게 처리해야 할까요? Sort 기준 필드를 클라이언트의 요청으로 주입받아 사용하는 것이 가장 생산성이 우수할 것입니다.
+그렇다면 클라이언트의 요청에 따라 Sort의 기준이 달라야 한다면 어떻게 처리해야 할까요? Sort 기준 필드를 클라이언트의 요청으로 주입받아 사용하는 것이 가장 생산성이 우수할 것입니다.
+
+위와 같은 문제로 생산성을 높이기 위해 `QuerydslRepositorySupport` 확장하여 아래 메소드를 추가하였습니다.
 
 ```java
 public OrderSpecifier[] getOrderSpecifiers(C clazz, Sort sort) {  
@@ -175,8 +177,6 @@ public OrderSpecifier[] getOrderSpecifiers(C clazz, Sort sort) {
   return orders.toArray(OrderSpecifier[]::new);  
 }  
 ```
-
-위와 같은 문제로 생산성을 높이기 위해 `QuerydslRepositorySupport` 확장하여 아래 메소드를 추가하였습니다.
 
 ```java
 public List<Category> getList(CategoryPagingRequestDTO req, Sort sort) {  
