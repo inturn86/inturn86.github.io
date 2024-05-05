@@ -1,6 +1,6 @@
 ---
 title: (QueryDsl) QuerydslRepositorySupport를 확장하여 개발 생산성을 향상시키자.
-date: 2024-05-06 12:00:00 +0800
+date: 2024-05-05 12:00:00 +0800
 description: QuerydslRepositorySupport를 확장하여 생산성 향상 / 코드 재사용에 대한 효율을 향상시켜보자.
 excerpt: QuerydslRepositorySupport를 확장하여 생산성 향상 / 코드 재사용에 대한 효율을 향상시켜보자.
 categories:
