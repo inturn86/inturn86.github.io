@@ -127,9 +127,9 @@ public BooleanExpression like(StringPath path, String param){
 public List<Category> getList(CategoryPagingRequestDTO req) {  
    return from(qCategory)  
          .where(  
-	            eq(qCategory.categoryId, req.getCategoryId()),  
-				like(qCategory.categoryName, req.getCategoryName()),  
-				eq(qCategory.categorySort, req.getCategorySort())
+               eq(qCategory.categoryId, req.getCategoryId()),  
+               like(qCategory.categoryName, req.getCategoryName()),  
+               eq(qCategory.categorySort, req.getCategorySort())
          )  
          .fetch();  
 }
