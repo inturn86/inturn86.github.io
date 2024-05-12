@@ -18,15 +18,15 @@ tags:
   - OptimisticLock
 ---
 
-## Redis 분산락
+## **Redis 분산락**
 
 Redis의 분산락에 대해서 알아보도록 하겠다. 락은 데이터 동시성 제어를 위해 필요하다. 그렇다면왜 Redis 분산락을 사용해야하는지? 다른 방식으로 제어할 수는 없는지 알아보고 최종적으로 분산락의 사용법까지 알아보자.
 
-## 데이터 동시성 제어
+## **데이터 동시성 제어**
 
 데이터의 동시성 제어(Concurrency Control)란, 여러 쓰레드가 하나의 데이터에 접근할 때 데이터의 일관성을 보장하고 데이터의 무결성을 유지해야 하는 제어 방식을 의미한다. 이러한 조건을 만족하며 시스템의 성능과 효율을 유지해야 하는 것 또한 중요한 포인트가 된다.
 
-## 데이터 동시성 제어 방법
+## **데이터 동시성 제어 방법**
 
 1. synchronized
 2. Database Lock
@@ -40,11 +40,11 @@ synchronized는 애플리케이션 내부에서 여러 쓰레드에 대한 접�
 
 **애플리케이션 내부에서 쓰레드의 접근을 순차적으로 제어하기 때문에 분산 서버 환경에서는 데이터 동시성 제어가 불가능**하다.
 
-### Database Lock
+### **Database Lock**
 
 Database Lock은 데이터베이스에 Lock을 사용하여 동시성 제어를 할 수 있다. 비관적 락(Pessimisitc Lock), 낙관적 락(Optimistic Lock) 동시성을 제어한다.
 
-#### 비관적 락 (Pessimisitc Lock)
+#### **비관적 락 (Pessimisitc Lock)**
 
 해당 데이터의 동시성 문제가 빈번하게 일어난다는 조건이 성립될 경우 사용되는 기술이다. 데이터를 읽거나 수정하기 전에 Lock을 획득하여 다른 사용자의 접근을 차단하고 Lock을 가진 쓰레드만 접근하도록 제어한다. RBDMS(MySQL, Oracle, PostgreSQL 등)에서는 `SELECT ~ FOR UPDATE` 와 같은 SQL문장으로 update가 완료되어 커밋할 때까지 다른 트랜잭션에서 row에 접근을 할 수 없는 기능을 제공한다.
 
@@ -54,7 +54,7 @@ JPA에서는 `@Lock(LockModeType.PESSIMISTIC_WRITE)` 로 비관적 락을 사용
 
 데이터의 동시성 문제가 빈번하게 일어난다면 확실하게 동시성을 제어할 수 있다는 장점이 있다. 반대로 데드락이 발생할 수 있고 해당 데이터에 Lock을 걸어 처리하기 때문에 여러 쓰레드의 접근이 이뤄질 경우 성능이 떨어질 수 있다.
 
-#### 낙관적 락(Optimistic Lock)
+#### **낙관적 락(Optimistic Lock)**
 
 낙관적락은 실제 Lock을 이용하는 방식이 아닌 버전과 같은 컬럼을 추가하여 데이터의 정합성을 맞추는 방법이다. 동시성 이슈가 자주 발생하지 않을 것으로 판단되는 조건에서 사용하고 버전을 통한 데이터 정합성의 이슈가 발생할 경우 예외를 발생시켜 정합성을 맞출 수 있도록 한다.
 
@@ -64,12 +64,12 @@ JPA에서는 `@Lock(LockModeType.PESSIMISTIC_WRITE)` 로 비관적 락을 사용
 
 위 2가지 Database Lock은 Database를 기준으로 동작하기 때문에 분산 Database 환경에서는 사용할 수 없다.
 
-### Distributed Lock
+### **Distributed Lock**
 
 Distributed Lock은 분산 시스템에서의 동시성 문제를 해결하기 위해 사용되며, 분산된 서버 간의 공유된 자원을 통해 엑세스를 제어한다.
 대표적으로 분산락을 활용할 수 있는 시스템은 Zookeeper, Redis가 있는데 이번엔 Redis의 Redisson의 RedLock 으로 분산락을 통한 동시성 제어를 확인한다.
 
-#### Redisson 을 사용한 분산락
+#### **Redisson 을 사용한 분산락**
 
 Redisson은 pub/sub과 Lua 스크립트를 활용해 효과적으로 분산락을 처리하는 기능을 제공한다.
 
@@ -93,19 +93,19 @@ pub/sub 기능을 활용하여 락을 획득할 때까지 subscribe로 채널의
 
 Lua Script를 통해 명령어의 집합을 원자적으로 실행할 수 있어 Lock, Unlock의 명령을 원자적으로 실행한다.
 
-#### Redisson을 활용한 분산락 적용
+#### **Redisson을 활용한 분산락 적용**
 
-##### 개발 목표
+##### **개발 목표**
 
 제한적인 수량의 쿠폰을 발급하는 서비스를 개발한다. 동시성 접근이 일어나는 상황을 만들고 분산락을 적용한 서비스와 그렇지 않은 서비스의 테스트 결과를 확인한다. 
 
-##### 의존성 추가
+##### **의존성 추가**
 ```
 implementation 'org.redisson:redisson-spring-boot-starter:{타겟 버전}'
 ```
 Redisson 의존성 추가
 
-##### application.yml 설정
+##### **application.yml 설정**
 
 ```application.yml
 spring:  
@@ -117,7 +117,7 @@ spring:
 
 Redis 접속 정보 설정
 
-##### 개발 내용
+##### **개발 내용**
 
 **Coupon**
 ```java
@@ -196,7 +196,7 @@ boolean tryLock(long waitTime, long leaseTime, TimeUnit unit) throws Interrupted
 - waitTime - Lock을 요청할 때까지 대기하는 시간
 - leaseTime - 해당 시간이 지나면 Lock 해제
 
-**CouponServiceTest
+**CouponServiceTest**
 ```java
 @SpringBootTest  
 class CouponServiceTest {  
@@ -278,7 +278,7 @@ public class UserExecutor implements Runnable{
 
 - 사용자가 쿠폰을 발행하는 Runnable class 구현
 
-##### 결과
+##### **결과**
 
 ![](../assets/img/2024-05-12-distributed-lock/테스트 결과.png)
 
@@ -286,12 +286,12 @@ public class UserExecutor implements Runnable{
 
 - 분산락을 적용한 테스트 메소드는 성공하였고 아닌 경우는 쿠폰 발행 갯수가 0으로 떨어지지 않아서 실패하였다.
 
-### 마치며
+### **마치며**
 
 데이터 동시성 제어에 관련한 내용을 알아보고 분산 환경(서버, Database)에서 활용 가능한 Redisson 분산락에 대해서 알아보았다. 데이터 동시성에 대한 해결 방안은 여러가지가 있으며 구성된 환경과 해결하고자 하는 이슈, 성능에 따라 다양한 해결방안을 정리하는 시간이였다. 
 
-### Github
+### **Github**
 https://github.com/inturn86/redis-distributed-lock
 
-### 참고자료
+### **참고자료**
 https://velog.io/@yellowsunn/%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EB%A5%BC-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%B0%A9%EB%B2%95
