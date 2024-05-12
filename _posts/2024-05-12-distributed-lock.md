@@ -291,7 +291,7 @@ public class UserExecutor implements Runnable{
 데이터 동시성 제어에 관련한 내용을 알아보고 분산 환경(서버, Database)에서 활용 가능한 Redisson 분산락에 대해서 알아보았다. 데이터 동시성에 대한 해결 방안은 여러가지가 있으며 구성된 환경과 해결하고자 하는 이슈, 성능에 따라 다양한 해결방안을 정리하는 시간이였다. 
 
 ### **Github**
-https://github.com/inturn86/redis-distributed-lock
+<https://github.com/inturn86/redis-distributed-lock>
 
 ### **참고자료**
-https://velog.io/@yellowsunn/%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EB%A5%BC-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%B0%A9%EB%B2%95
+<https://velog.io/@yellowsunn/%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EB%A5%BC-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%B0%A9%EB%B2%95>
