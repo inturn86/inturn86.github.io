@@ -33,7 +33,7 @@ MySQL 에서 Replication 을 위해 반드시 필요한 요소는 다음과 같�
 
 위의 구성 요소들은 아래 그림에서 보는 Flow 대로 데이터 복제를 수행한다.
 
-![](http://cloudrain21.com/wordpress/wp-content/uploads/2019/10/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA-2019-10-09-%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE-9.01.41-1024x684.png)
+![](../assets/img/2024-05-19-mysql-replication/mysql-replication.png)
 
 1. 클라이언트(Application)에서 Commit 을 수행한다.
 2. Connection Thread 는 스토리지 엔진에게 해당 트랜잭션에 대한 Prepare(Commit 준비)를 수행한다.
