@@ -340,9 +340,9 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
 
 `AbstractRoutingDataSource` 라는 추상 클래스를 통해 멀티 DataSource 환경을 묶고 분기할 수 있다.
 
-`AbstractRoutingDataSource` 의 `setTargetDataSources()` 라는 메소드를 통해 Map을 전달한다. 이때 Map의 Value로는 `DataSource` 를 전달한다. 전달된 `DataSource` 는 Map의 Key를 통해 찾을 수 있다. 여기서는 Key를 String 타입으로 사용할 것이다.
+`AbstractRoutingDataSource` 의 `setTargetDataSources()`라는 메소드를 통해 Map을 전달한다. 이때 Map의 Value로는`DataSource`를 전달한다. 전달된 `DataSource` 는 Map의 Key를 통해 찾을 수 있다. 여기서는 Key를 String 타입으로 사용할 것이다.
 
-`AbstractRoutingDataSource` 를 상속받는 구체 클래스 `RoutingDataSource` 를 구현하고, `determineCurrentLookupKey()` 메소드를 오버라이드하여 트랜잭션의 readOnly 값에 따라 다른 `DataSource` Key를 반환하도록 한다.
+`AbstractRoutingDataSource` 를 상속받는 구체 클래스 `RoutingDataSource` 를 구현하고,`determineCurrentLookupKey()` 메소드를 오버라이드하여 트랜잭션의 readOnly 값에 따라 다른 `DataSource` Key를 반환하도록 한다.
 
 #### **결과**
 
