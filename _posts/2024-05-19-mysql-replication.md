@@ -384,4 +384,5 @@ MySQL Replication 구현을 위한 MySQL 구성, Spring Boot 프로젝트 구성
 ### **참고자료**
 
 <https://hudi.blog/database-replication-with-springboot-and-mysql/>
+
 <http://cloudrain21.com/mysql-replication>
